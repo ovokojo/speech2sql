@@ -3,7 +3,7 @@
 The most common programming language for managing and interacting with relational databases is Structured Query Language (SQL). Despite its human-readable syntax, it is quite challenging to use for many people, especially those with no prior programming experience. With the ubiquity of data stored in relational databases, building natural language interfaces for relational databases is an important problem to solve, and an ongoing challenge1.
 
 
-##RESEARCH QUESTION
+## RESEARCH QUESTION
 
 ### Can deep learning networks convert natural language queries in the form of speech, into SQL queries with at least 75% accuracy?
 

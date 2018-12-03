@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!-- font awesome -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Speech-to-SQL</title>
+    </head>
+
+    <body>
+      <div class="navbar-fixed">
+        <nav class="light-blue">
+          <div class="container">
+            <div class="nav-wrapper">
+              <a href="#" class="brand-logo">Speech-to-SQL</a>
+              <a href="#" class="sidenav-trigger" data-target="mobile-nav">
+                <i class="material-icons">menu</i>
+              </a>
+              <ul class="right hide-on-med-and-down">
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#evaluation">Evaluation</a></li>
+                <li><a href="#contact">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Demo -->
+
+      <div class="container">
+        <div class="row">
+          <div class="col s6">
+            <a class="waves-effect waves-light red btn recorder" onclick="startSpeech()"><i class="material-icons left">mic</i>record</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <a class="waves-effect waves-light black btn stopper" onclick="endSpeech()"><i class="material-icons left">stop</i>stop</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+              <div class="progress">
+                    <div class="indeterminate"></div>
+              </div>
+            <ul class="collection">
+              <li class="collection-item text-output">text</li>
+              <li class="collection-item sql-output">sql</li>
+            </ul>
+          </div>
+        </div>
+
+
+      </div>
+
+      <script>
+        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+        var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+        var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+
+        var recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        var recorder = document.querySelector('.recorder');
+        var stopper = document.querySelector('.stopper');
+        var text_output = document.querySelector('.text-output');
+        let progress_bar = document.querySelector('.progress').style.visibility = "hidden";
+
+        startSpeech = function() {
+          recognition.start();
+          let progress_bar = document.querySelector('.progress').style.visibility = "visible"
+          console.log('start speech works')
+        }
+
+
+        endSpeech = function() {
+          recognition.stop();
+          console.log('end speech works');
+
+        }
+
+        recognition.onresult = function(event) {
+            var last = event.results.length - 1;
+            var text_result = event.results[last][0].transcript;
+            text_output.textContent = text_result;
+            let progress_bar = document.querySelector('.progress').style.visibility = "hidden";
+            console.log('result works');
+          }
+      </script>
+
+
+      <!-- <input type="file" accept="audio/*" capture id="recorder">
+
+       <audio id="player" controls></audio>
+       <script>
+         var recorder = document.getElementById('recorder');
+         var player = document.getElementById('player');
+
+         recorder.addEventListener('change', function(e) {
+           var file = e.target.files[0];
+           // Do something with the audio file.
+           player.src =  URL.createObjectURL(file);
+         });
+
+
+       </script> -->
+
+
+
+
+
+      <!-- 1. Database Preview -->
+      <!-- 2. Speech to SQL button -->
+      <!-- 3. Text preview, SQL query, results-->
+
+      <!-- Process & Evaluation (embed Jupyter notebook) -->
+
+      <!-- Contact info-->
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <script>
+
+      </script>
+    </body>
+  </html>
