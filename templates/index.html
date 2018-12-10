@@ -61,7 +61,10 @@
 
       </div>
 
+
       <script>
+
+        // Speech to text
         var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
         var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
         var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
@@ -74,6 +77,7 @@
         var recorder = document.querySelector('.recorder');
         var stopper = document.querySelector('.stopper');
         var text_output = document.querySelector('.text-output');
+        var sql_output = document.querySelector('.sql-output');
         let progress_bar = document.querySelector('.progress').style.visibility = "hidden";
 
         startSpeech = function() {
@@ -88,50 +92,42 @@
           console.log('end speech works');
 
         }
-
+        // Text to SQL
         recognition.onresult = function(event) {
             var last = event.results.length - 1;
             var text_result = event.results[last][0].transcript;
             text_output.textContent = text_result;
             let progress_bar = document.querySelector('.progress').style.visibility = "hidden";
             console.log('result works');
+
+            var data = JSON.stringify({
+              "token": "demo",
+              "usertoken": [
+                "demo"
+              ],
+              "database": "foodmart_demo",
+              "params": {text_result}
+            });
+
+            var xhr = new XMLHttpRequest();
+            // may need to change to true when deploying
+            xhr.withCredentials = false;
+
+            xhr.addEventListener("readystatechange", function () {
+              if (this.readyState === 4) {
+                apiResponse = JSON.parse(this.responseText)
+                sql_output.textContent = apiResponse.result;
+                console.log(apiResponse.result);
+              }
+            });
+
+            xhr.open("POST", "https://msg.dhignite.com/api/1.1/nlq/getSql");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("cache-control", "no-cache");
+            xhr.setRequestHeader("Postman-Token", "6b462945-244a-4b15-9af6-1d2dd6d99014");
+
+            xhr.send(data);
           }
-      </script>
-
-
-      <!-- <input type="file" accept="audio/*" capture id="recorder">
-
-       <audio id="player" controls></audio>
-       <script>
-         var recorder = document.getElementById('recorder');
-         var player = document.getElementById('player');
-
-         recorder.addEventListener('change', function(e) {
-           var file = e.target.files[0];
-           // Do something with the audio file.
-           player.src =  URL.createObjectURL(file);
-         });
-
-
-       </script> -->
-
-
-
-
-
-      <!-- 1. Database Preview -->
-      <!-- 2. Speech to SQL button -->
-      <!-- 3. Text preview, SQL query, results-->
-
-      <!-- Process & Evaluation (embed Jupyter notebook) -->
-
-      <!-- Contact info-->
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-      <script>
-
       </script>
     </body>
   </html>
