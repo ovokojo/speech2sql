@@ -23,8 +23,7 @@
               </a>
               <ul class="right hide-on-med-and-down">
                 <li><a href="#demo">Demo</a></li>
-                <li><a href="#process">Process</a></li>
-                <li><a href="#evaluation">Evaluation</a></li>
+                <li><a href="{{ url_for('model') }}">Experiment</a></li>
                 <li><a href="#contact">Contact</a></li>
               </ul>
             </div>
@@ -34,7 +33,24 @@
 
       <!-- Demo -->
 
+      <br>
       <div class="container">
+        <div class="row">
+          <div class="col s12">
+            <img src="/static/cover.svg" alt="summary">
+          </div>
+        </div>
+        <br>
+        <br>
+         <div class="row">
+          <div class="cols 12">
+            <h3 id="demo">Demo</h3>
+            <p>Below is a demonstration of a speech to SQL interface. The voice recognition is done through the Web Speech API, and the text-to-SQL translation is performed by a pretrained seq to seq model hosted in the cloud.</p>
+
+            <p>The model is configured for a demo database with sales data from a food mart.</p>
+            <p><a href="http://docs.dhignite.com/">Source</a></p>
+          </div>
+        </div>
         <div class="row">
           <div class="col s6">
             <br>
@@ -52,13 +68,13 @@
                     <div class="indeterminate"></div>
               </div>
             <ul class="collection">
-              <li class="collection-item text-output">text</li>
-              <li class="collection-item sql-output">sql</li>
+              <p align="center"><b>Question</b></p>
+              <li class="collection-item text-output"></li>
+              <p align="center"><b>SQL</b></p>
+              <li class="collection-item sql-output"></li>
             </ul>
           </div>
         </div>
-
-
       </div>
 
 
